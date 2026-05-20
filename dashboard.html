@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraud System Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <div class="logo-section">
+        <h2>Fraud System</h2>
+        <p>Return Fraud Detection</p>
+    </div>
+
+    <div class="menu">
+        <a href="#" onclick="showSection('dashboardSection')">
+            Dashboard
+        </a>
+
+        <a href="#" onclick="showSection('historySection')">
+            Fraud History
+        </a>
+
+        <a href="#" onclick="showSection('analyticsSection')">
+            Analytics
+        </a>
+    </div>
+
+    <div class="bottom-menu">
+        <button id="darkModeBtn">Dark Mode</button>
+        <button id="logoutBtn">Logout</button>
+    </div>
+
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main-content">
+
+    <!-- TOPBAR -->
+    <div class="topbar">
+        <div>
+            <h1>Analytics Dashboard</h1>
+            <p>Visual breakdown of return fraud patterns</p>
+        </div>
+    </div>
+
+    <!-- DASHBOARD SECTION -->
+    <div id="dashboardSection">
+
+        <!-- STATS -->
+       <div class="stats">
+
+    <div class="stat-card">
+        <h3>Total Analyzed</h3>
+        <p>📊 <span id="totalCases">0</span></p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Low Risk</h3>
+        <p>🟢 <span id="lowRiskCount">0</span></p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Medium Risk</h3>
+        <p>🟠 <span id="mediumRiskCount">0</span></p>
+    </div>
+
+    <div class="stat-card">
+        <h3>High Risk</h3>
+        <p>🔴 <span id="highRiskCount">0</span></p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Avg. Fraud Score</h3>
+        <p>📈 <span id="avgScore">0%</span></p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Fraud Rate</h3>
+        <p>⚠️ <span id="fraudRate">0%</span></p>
+    </div>
+
+</div>
+        <!-- FORM + ANALYSIS -->
+        <div class="content-grid">
+
+            <!-- FORM -->
+            <div class="card">
+
+                <h2>Evaluate Customer Return</h2>
+
+                <input 
+                    type="text"
+                    id="customerName"
+                    placeholder="Customer Name"
+                >
+
+                <input 
+                    type="text"
+                    id="orderId"
+                    placeholder="Order ID"
+                >
+
+                <input 
+                    type="number"
+                    id="returnCount"
+                    placeholder="Return Count"
+                >
+
+                <button id="checkBtn">
+                    Check Fraud
+                </button>
+
+                <div class="result-box">
+                    <p id="result">No analysis yet</p>
+                    <h3 id="score"></h3>
+                </div>
+
+            </div>
+
+            <!-- ANALYSIS -->
+            <div class="card">
+
+                <h2>Fraud Analysis</h2>
+
+                <div class="analysis-box">
+                    <p id="analysisText">
+                        Customer risk analysis will appear here.
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- HISTORY SECTION -->
+    <div id="historySection" class="hidden-section">
+
+        <div class="table-card">
+
+            <div class="table-top">
+
+                <h2>Fraud History</h2>
+
+                <div class="actions">
+
+                    <input 
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search customer"
+                    >
+
+                    <select id="filterRisk">
+                        <option value="all">All Risks</option>
+                        <option value="Low Risk">Low Risk</option>
+                        <option value="Medium Risk">Medium Risk</option>
+                        <option value="High Risk">High Risk</option>
+                    </select>
+
+                    <button id="downloadBtn">
+                        Download CSV
+                    </button>
+
+                    <button id="clearBtn">
+                        Clear
+                    </button>
+
+                </div>
+
+            </div>
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Order ID</th>
+                        <th>Return Count</th>
+                        <th>Risk</th>
+                        <th>Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="tableBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- ANALYTICS SECTION -->
+    <div id="analyticsSection" class="hidden-section">
+
+        <div class="analytics-header">
+            <h1>Analytics Dashboard</h1>
+            <p>Visual breakdown of return fraud patterns</p>
+        </div>
+
+        <!-- ANALYTICS STATS -->
+       <div class="stats">
+
+    <div class="stat-card">
+        <h3>Total Analyzed</h3>
+        <p>📊 <span id="totalCases">0</span></p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Low Risk</h3>
+        <p>🟢 <span id="lowRiskCount">0</span></p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Medium Risk</h3>
+        <p>🟠 <span id="mediumRiskCount">0</span></p>
+    </div>
+
+    <div class="stat-card">
+        <h3>High Risk</h3>
+        <p>🔴 <span id="highRiskCount">0</span></p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Avg. Fraud Score</h3>
+        <p>📈 <span id="avgScore">0%</span></p>
+    </div>
+
+    <div class="stat-card">
+        <h3>Fraud Rate</h3>
+        <p>⚠️ <span id="fraudRate">0%</span></p>
+    </div>
+
+</div>
+        <!-- CHARTS -->
+        <div class="chart-grid">
+
+            <div class="chart-card">
+                <h2>Customer Risk Overview</h2>
+                <canvas id="barChart"></canvas>
+            </div>
+
+            <div class="chart-card">
+                <h2>Risk Distribution</h2>
+                <canvas id="pieChart"></canvas>
+            </div>
+
+        </div>
+
+        <!-- RISK BREAKDOWN -->
+        <div class="breakdown-card">
+
+            <h2>Risk Tier Breakdown</h2>
+
+            <!-- LOW -->
+            <div class="risk-item">
+
+                <div class="risk-info">
+                    <span>Low Risk</span>
+                    <span id="lowPercent">0%</span>
+                </div>
+
+                <div class="progress">
+                    <div id="lowBar" class="progress-fill low-fill"></div>
+                </div>
+
+            </div>
+
+            <!-- MEDIUM -->
+            <div class="risk-item">
+
+                <div class="risk-info">
+                    <span>Medium Risk</span>
+                    <span id="mediumPercent">0%</span>
+                </div>
+
+                <div class="progress">
+                    <div id="mediumBar" class="progress-fill medium-fill"></div>
+                </div>
+
+            </div>
+
+            <!-- HIGH -->
+            <div class="risk-item">
+
+                <div class="risk-info">
+                    <span>High Risk</span>
+                    <span id="highPercent">0%</span>
+                </div>
+
+                <div class="progress">
+                    <div id="highBar" class="progress-fill high-fill"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
